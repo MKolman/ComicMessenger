@@ -1,10 +1,10 @@
 # ComicMessenger
-A Facebook messenger bot for sending the newest comics to users
-<aside class="notice">
+A Facebook messenger bot for sending the newest comics to users. It will send you a Facebook message with any new comic you desire.
+
+### Notice
 Please be careful when using this code as it can be very easy to accidentally
 send A LOT of messages. I have not yet encountered this, but it may be possible
 for Facebook to detect you as a spam account and block you.
-</aside>
 
 ## Setup
 ```bash
@@ -14,7 +14,7 @@ virtualenv -p $(which python3) venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-<aside class="warning">
+### Warning
 The `fbchat` library has a bug in python 3.5 causing it to crash when sending
 images. You have to add two lines into
 `venv/lib/python3.5/site-packages/fbchat/client.py` under the line 325:
@@ -26,7 +26,6 @@ if isinstance(r._content, bytes):               # New line
 # Strip the start and parse out the returned image_id
 return json.loads(r._content[9:])['payload']['metadata'][0]['image_id']
 ```
-</aside>
 
 ## Running
 To run the program you have to enter the python virtual environment and run the
