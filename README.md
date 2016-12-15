@@ -19,12 +19,12 @@ The `fbchat` library has a bug in python 3.5 causing it to crash when sending
 images. You have to add two lines into
 `venv/lib/python3.5/site-packages/fbchat/client.py` under the line 325:
 
-```diff
-  r = self._postFile(UploadURL, image)
-+ if isinstance(r._content, bytes):               # New line
-+     r._content = r._content.decode("utf-8")     # New line
-  # Strip the start and parse out the returned image_id
-  return json.loads(r._content[9:])['payload']['metadata'][0]['image_id']
+```python
+r = self._postFile(UploadURL, image)
+if isinstance(r._content, bytes):               # New line
+    r._content = r._content.decode("utf-8")     # New line
+# Strip the start and parse out the returned image_id
+return json.loads(r._content[9:])['payload']['metadata'][0]['image_id']
 ```
 </aside>
 
