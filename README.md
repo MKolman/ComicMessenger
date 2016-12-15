@@ -43,6 +43,13 @@ You can change the list of subscribers in the list at the bottom of `main.py`.
 ### Crontab
 TODO
 
+## Currently supported comics
+Current implementation includes:
+ - XKCD (http://xkcd.com/)
+ - Cyanide & Happiness (http://explosm.net/comics/latest/)
+ - Saturday Morning Breakfast Cereal (http://www.smbc-comics.com/)
+ - PhD comics (http://phdcomics.com/comics.php)
+
 ## Contribute
 To contribute a new comic to the collection all you have to do is add its
 RSS link in `feeder.py` and add a parser for your comic in `def parser`.
