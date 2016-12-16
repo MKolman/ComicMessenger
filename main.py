@@ -43,10 +43,17 @@ def send_all(username=None, password=None, subscribers=None):
         subscribers = [input("Send to: ")]
     users = [int(user) if str(user).isdecimal() else
              client.getUsers(user)[0].uid for user in subscribers]
+    first_message = True
     try:
         for message in message_creator(True):
             for user in users:
+                if first_message:
+                    client.send(user, "Hey, I have new comics for you!")
                 send_result(client, user, message)
+            first_message = False
+        if first_message:
+            for user in users:
+                client.send(user, "Sorry, no new comics at this time.")
     except Exception as e:
         exc = traceback.format_exc()
         print("Comic Messenger failed")
