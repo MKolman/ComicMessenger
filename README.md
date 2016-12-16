@@ -8,6 +8,7 @@ for Facebook to detect you as a spam account and block you.
 
 ## Setup
 ```bash
+sudo apt-get install libxml2-dev libxslt-dev gcc
 git clone https://github.com/MKolman/ComicMessenger.git
 cd ComicMessenger
 virtualenv -p $(which python3) venv
