@@ -52,7 +52,7 @@ def parse(comic, item):
     result = dict(post="")
 
     # Handle those comics that send the image url in their RSS description
-    if comic in ["xkcd", "Phd", "SMBC"]:
+    if comic in ["xkcd", "PhD", "SMBC"]:
         img = BeautifulSoup(item["summary"], "lxml").find("img")
         result.update({"pre": item["title"], "img": img["src"]})
         if comic == "xkcd":
