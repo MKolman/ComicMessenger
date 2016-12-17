@@ -15,21 +15,26 @@ rss = {
 }
 
 
-def get_last_checked_time():
+def get_last_checked_times():
     """ Reads from file the last time a check was made.
     :returns: A datetime object of the last check or None if none was made
     """
+    result = {key: None for key in rss}
     try:
         with open("last_check_time.txt", "r") as f:
-            return datetime.fromtimestamp(float(f.read()))
-    except Exception:
-        return None
+            for line in f:
+                key, t = line.rsplit(" ", 1)
+                result[key] = datetime.fromtimestamp(float(t))
+        return result
+    except FileNotFoundError:
+        return result
 
 
-def set_last_checked_time():
+def set_last_checked_time(last_checks):
     """ Writes to file the current time as the  last checked time. """
     with open("last_check_time.txt", "w") as f:
-        f.write(str(datetime.now().timestamp()))
+        for comic in last_checks:
+            f.write("{} {}\n".format(comic, last_checks[comic].timestamp()))
         f.close()
 
 
@@ -62,7 +67,7 @@ def parse(comic, item):
 
     # Add the published date to the
     result["date"] = datetime.fromtimestamp(mktime(item["published_parsed"]))
-    print(item["published"], result["date"])
+    # print(item["published"], result["date"])
     if "post" in result:
         result["post"] += "\n" + item["link"]
     else:
@@ -77,12 +82,24 @@ def message_creator(filter_checked=False):
     :returns:
         It yields dictionaries describing each new comic
     """
-    last_check = get_last_checked_time()
+    last_checks = get_last_checked_times()
     for comic in rss:
         print("requesting RSS for", comic)
         feed = feedparser.parse(rss[comic])
+        last_date = last_checks[comic]
         for i in feed["items"]:
             data = parse(comic, i)
-            if last_check is None or data["date"] > last_check:
+            last_date = last_date or data["date"]
+            last_date = max(last_date, data["date"])
+            if last_checks[comic] is None or data["date"] > last_checks[comic]:
                 yield data
-    set_last_checked_time()
+        last_checks[comic] = last_date
+    set_last_checked_time(last_checks)
+
+
+if __name__ == "__main__":
+    print("Running tests...")
+    for message in message_creator():
+        print(message)
+        print()
+
