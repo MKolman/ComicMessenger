@@ -42,7 +42,14 @@ the prompt by the program.
 You can change the list of subscribers in the list at the bottom of `main.py`.
 
 ### Crontab
-TODO
+To run this script every day at 06:00 (computer time) open crontab
+```bash
+crontab -e
+```
+and add the following line
+```
+0 6 * * * cd /path/to/ComicMessenger/ && . venv/bin/activate && python main.py <username> <password> >> crontab.log
+```
 
 ## Currently supported comics
 Current implementation includes:
