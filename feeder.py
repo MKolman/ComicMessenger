@@ -48,6 +48,7 @@ def parse(comic, item):
         img: url link to an image to be sent
         post: text to be sent last
         date: a datetime instance representing the publish date of the comic
+        comic: name of the comic
     """
     result = dict(post="")
 
@@ -65,6 +66,8 @@ def parse(comic, item):
         result.update({"pre": "{}\n{}".format(item["summary"], item["title"]),
                        "img": "http:" + img["src"].split("?t=")[0]})
 
+    # Add the comic name
+    result["comic"] = comic
     # Add the published date to the
     result["date"] = datetime.fromtimestamp(mktime(item["published_parsed"]))
     # print(item["published"], result["date"])
