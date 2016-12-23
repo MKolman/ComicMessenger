@@ -33,7 +33,8 @@ def send_all(username=None, password=None, subscribers=None):
         password = getpass()
     try:
         print("Logging in...")
-        client = Client(username, password, debug=False)
+        ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+        client = Client (username, password, debug=False, user_agent=ua)
     except Exception as e:
         print("Could not login!")
         print(traceback.format_exc())
