@@ -63,8 +63,11 @@ def parse(comic, item):
         # Manually load C&H site to get the image url
         site = requests.get(item["link"]).content.decode()
         img = BeautifulSoup(site, "lxml").find("img", id="main-comic")
-        result.update({"pre": "{}\n{}".format(item["summary"], item["title"]),
-                       "img": "http:" + img["src"].split("?t=")[0]})
+        try:
+            result.update({"pre": "{}\n{}".format(item["summary"], item["title"]),
+                           "img": "http:" + img["src"].split("?t=")[0]})
+        except Exception as e:
+            result.update({"pre": "C&H seems broken :(", "post": str(e)})
 
     # Add the comic name
     result["comic"] = comic
