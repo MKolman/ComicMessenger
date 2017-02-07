@@ -56,6 +56,7 @@ def parse(comic, item):
     # Handle those comics that send the image url in their RSS description
     if comic in ["xkcd", "PhD", "SMBC", "NTL"]:
         img = BeautifulSoup(item["summary"], "lxml").find("img")
+        img = img or {"src": "https://d30y9cdsu7xlg0.cloudfront.net/png/45592-200.png"}
         result.update({"pre": item["title"], "img": img["src"]})
         if comic == "xkcd":
             result["post"] = "Hover text: " + img["title"]
