@@ -11,7 +11,8 @@ rss = {
     "xkcd": "http://xkcd.com/rss.xml",
     "C&H": "http://feeds.feedburner.com/Explosm",
     "PhD": "http://phdcomics.com/gradfeed.php",
-    "SMBC": "http://www.smbc-comics.com/rss.php"
+    "SMBC": "http://www.smbc-comics.com/rss.php",
+    "NTL": "http://noobtheloser.tumblr.com/rss",
 }
 
 
@@ -53,7 +54,7 @@ def parse(comic, item):
     result = dict(post="")
 
     # Handle those comics that send the image url in their RSS description
-    if comic in ["xkcd", "PhD", "SMBC"]:
+    if comic in ["xkcd", "PhD", "SMBC", "NTL"]:
         img = BeautifulSoup(item["summary"], "lxml").find("img")
         result.update({"pre": item["title"], "img": img["src"]})
         if comic == "xkcd":
