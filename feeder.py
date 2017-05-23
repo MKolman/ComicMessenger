@@ -8,11 +8,12 @@ from bs4 import BeautifulSoup
 
 # List of RSS feeds for comics
 rss = {
-    "xkcd": "http://xkcd.com/rss.xml",
-    "C&H": "http://feeds.feedburner.com/Explosm",
-    "PhD": "http://phdcomics.com/gradfeed.php",
-    "SMBC": "http://www.smbc-comics.com/rss.php",
-    "NTL": "http://noobtheloser.tumblr.com/rss",
+    # "xkcd": "http://xkcd.com/rss.xml",
+    # "C&H": "http://feeds.feedburner.com/Explosm",
+    # "PhD": "http://phdcomics.com/gradfeed.php",
+    # "SMBC": "http://www.smbc-comics.com/rss.php",
+    # "NTL": "http://noobtheloser.tumblr.com/rss",
+    "PDL": "http://feeds.feedburner.com/PoorlyDrawnLines?format=xml",
 }
 
 
@@ -60,8 +61,11 @@ def parse(comic, item):
         result.update({"pre": item["title"], "img": img["src"]})
         if comic == "xkcd":
             result["post"] = "Hover text: " + img["title"]
-
-    if comic == "C&H":
+    elif comic == "PDL":
+        img = BeautifulSoup(item["content"][0]["value"], "lxml").find("img")
+        img = img or {"src": "https://d30y9cdsu7xlg0.cloudfront.net/png/45592-200.png"}
+        result.update({"pre": item["title"], "img": img["src"]})
+    elif comic == "C&H":
         # Manually load C&H site to get the image url
         site = requests.get(item["link"]).content.decode()
         img = BeautifulSoup(site, "lxml").find("img", id="main-comic")
