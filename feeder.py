@@ -8,11 +8,11 @@ from bs4 import BeautifulSoup
 
 # List of RSS feeds for comics
 rss = {
-    # "xkcd": "http://xkcd.com/rss.xml",
-    # "C&H": "http://feeds.feedburner.com/Explosm",
-    # "PhD": "http://phdcomics.com/gradfeed.php",
-    # "SMBC": "http://www.smbc-comics.com/rss.php",
-    # "NTL": "http://noobtheloser.tumblr.com/rss",
+    "xkcd": "http://xkcd.com/rss.xml",
+    "C&H": "http://feeds.feedburner.com/Explosm",
+    "PhD": "http://phdcomics.com/gradfeed.php",
+    "SMBC": "http://www.smbc-comics.com/rss.php",
+    "NTL": "http://noobtheloser.tumblr.com/rss",
     "PDL": "http://feeds.feedburner.com/PoorlyDrawnLines?format=xml",
 }
 
