@@ -1,5 +1,10 @@
+appdirs==1.4.3
 beautifulsoup4==4.5.1
--e git+https://github.com/MKolman/fbchat.git@d7acab20da5db54f5f3e9596be35f26f7ba477e8#egg=fbchat
+enum34==1.1.6
+fbchat==1.0.18
 feedparser==5.2.1
 lxml==3.7.0
+packaging==16.8
+pyparsing==2.2.0
 requests==2.12.4
+six==1.10.0
